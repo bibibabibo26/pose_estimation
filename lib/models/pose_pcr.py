@@ -44,7 +44,7 @@ class CAM(nn.Module):
         )
 
         self.res_branch = nn.Sequential(
-            nn.Upsample(scale_factor=1, mode="bilinear", align_corners=True),
+            #nn.Upsample(scale_factor=1, mode="bilinear", align_corners=True),
             nn.Conv2d(
                 input_channels, input_channels, kernel_size=1, stride=1, bias=False
             ),
@@ -103,7 +103,7 @@ class PCR(nn.Module):
         outs = []
         for i in range(self.levels_num):
             y = getattr(self, "level_" + str(i))(x)
-            y = getattr(self, "conv1x1_level_" + str(i))(x)
+            y = getattr(self, "conv1x1_level_" + str(i))(y)
 
             if i == 0:
                 outs.append(y)
